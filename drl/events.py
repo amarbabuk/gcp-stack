@@ -1,0 +1,50 @@
+from google.cloud import bigquery
+
+# Construct a BigQuery client object.
+client = bigquery.Client()
+
+# TODO(developer): Set table_id to the ID of the table to create.
+# table_id = "your-project.your_dataset.your_table_name"
+table_id = "causal-guide-108309.foo_drl.events"
+
+#id,cloud_id,season_id,order,start_date,end_date,name,venue,city,state,country,scoring_id,format_id,time_cap,time_offset,season_standings_enabled,event_live,created_at,updated_at
+#2,,1,2,2016-03-04,2016-03-06,Escape from LA,"",Hawthorne,CA,US,1,1,90,+00:00:00,1,0,2016-07-06 18:12:17,2017-03-01 21:29:19
+
+job_config = bigquery.LoadJobConfig(
+    schema=[
+        bigquery.SchemaField("id", "STRING"),
+        bigquery.SchemaField("cloud_id", "STRING"),
+        bigquery.SchemaField("season_id", "STRING"),
+        bigquery.SchemaField("order", "STRING"),
+        bigquery.SchemaField("start_date", "STRING"),
+        bigquery.SchemaField("end_date", "STRING"),
+        bigquery.SchemaField("name", "STRING"),
+        bigquery.SchemaField("venue", "STRING"),
+        bigquery.SchemaField("city", "STRING"),
+        bigquery.SchemaField("state", "STRING"),
+        bigquery.SchemaField("country", "STRING"),
+        bigquery.SchemaField("scoring_id", "STRING"),
+        bigquery.SchemaField("format_id", "STRING"),
+        bigquery.SchemaField("time_cap", "STRING"),
+        bigquery.SchemaField("time_offset", "STRING"),
+        bigquery.SchemaField("season_standings_enabled", "STRING"),
+        bigquery.SchemaField("event_live", "STRING"),
+
+        bigquery.SchemaField("created_at", "STRING"),
+        bigquery.SchemaField("updated_at", "STRING"),
+    ],
+    skip_leading_rows=1,
+    # The source format defaults to CSV, so the line below is optional.
+    source_format=bigquery.SourceFormat.CSV,
+)
+# uri = "gs://cloud-samples-data/bigquery/us-states/us-states.csv"
+uri = "gs://spls/gsp394/tables/events.csv"
+
+load_job = client.load_table_from_uri(
+    uri, table_id, job_config=job_config
+)  # Make an API request.
+
+load_job.result()  # Waits for the job to complete.
+
+destination_table = client.get_table(table_id)  # Make an API request.
+print("Loaded {} rows.".format(destination_table.num_rows))
