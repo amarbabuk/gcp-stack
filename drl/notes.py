@@ -66,4 +66,4 @@ gs://spls/gsp394/tables/seasons.csv
 gs://spls/gsp394/tables/time_trial_group_pilot_crossings.csv
 gs://spls/gsp394/tables/time_trial_group_pilot_times.csv
 gs://spls/gsp394/tables/time_trial_group_pilots.csv
-gs://spls/gsp394/tables/time_trial_groups.csvs
+gs://spls/gsp394/tables/time_trial_groups.csv
