@@ -1,3 +1,6 @@
+ssh-keygen -t ed25519 -C "a@b.com"
+
+
 
 https://www.cloudskillsboost.google/games/3139
 Lab-1
