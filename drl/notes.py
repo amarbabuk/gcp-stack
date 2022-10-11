@@ -1,3 +1,5 @@
+https://www.cloudskillsboost.google/games/3139/labs/19212
+
 gs://spls/gsp394/tables
 
 gsutil ls gs://spls/gsp394/tables
@@ -82,6 +84,7 @@ Pilots Who Flew in an Event
 select p.name, v.name  from `qwiklabs-gcp-02-7312262849d7.drl.pilots` p, `qwiklabs-gcp-02-7312262849d7.drl.event_pilots` e, `qwiklabs-gcp-02-7312262849d7.drl.events` v 
 where p.id = e.pilot_id
 and v.id = e.event_id
+and 
 and parse_date('%Y-%m-%d', v.end_date) < current_date()
 
 Q4
@@ -95,7 +98,7 @@ SELECT time
        )
    AS INT64)
    )
- )
+ ) avg
  from `qwiklabs-gcp-02-7312262849d7.drl.round_standings`
  where rank = '1'
 
