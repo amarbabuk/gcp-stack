@@ -5,7 +5,7 @@ client = bigquery.Client()
 
 # TODO(developer): Set table_id to the ID of the table to create.
 # table_id = "your-project.your_dataset.your_table_name"
-table_id = "causal-guide-108309.foo_drl.event_standings"
+table_id = "qwiklabs-gcp-02-7312262849d7.drl.event_standings"
 
 #id,event_id,event_pilot_id,rank,points,minimum_time,time_type,created_at,updated_at
 #54,10,126,12,0,,,2018-01-30 17:14:13,2018-01-30 17:14:13
