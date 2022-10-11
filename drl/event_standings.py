@@ -5,19 +5,20 @@ client = bigquery.Client()
 
 # TODO(developer): Set table_id to the ID of the table to create.
 # table_id = "your-project.your_dataset.your_table_name"
-table_id = "qwiklabs-gcp-02-7312262849d7.drl.event_standings"
+table_id = "causal-guide-108309.foo_drl.event_standings"
 
-# id,event_id,pilot_id,color_id,away_color_id,stripe_color_id,active_color,created_at,updated_at
+#id,event_id,event_pilot_id,rank,points,minimum_time,time_type,created_at,updated_at
+#54,10,126,12,0,,,2018-01-30 17:14:13,2018-01-30 17:14:13
 
 job_config = bigquery.LoadJobConfig(
     schema=[
         bigquery.SchemaField("id", "STRING"),
         bigquery.SchemaField("event_id", "STRING"),
-        bigquery.SchemaField("pilot_id", "STRING"),
-        bigquery.SchemaField("color_id", "STRING"),
-        bigquery.SchemaField("away_color_id", "STRING"),
-        bigquery.SchemaField("stripe_color_id", "STRING"),
-        bigquery.SchemaField("active_color", "STRING"),
+        bigquery.SchemaField("event_pilot_id", "STRING"),
+        bigquery.SchemaField("rank", "STRING"),
+        bigquery.SchemaField("points", "STRING"),
+        bigquery.SchemaField("minimum_time", "STRING"),
+        bigquery.SchemaField("time_type", "STRING"),
         bigquery.SchemaField("created_at", "STRING"),
         bigquery.SchemaField("updated_at", "STRING"),
     ],
