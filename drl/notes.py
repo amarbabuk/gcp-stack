@@ -1,3 +1,6 @@
+
+https://www.cloudskillsboost.google/games/3139
+Lab-1
 https://www.cloudskillsboost.google/games/3139/labs/19212
 
 gs://spls/gsp394/tables
@@ -112,3 +115,32 @@ where t.time_trial_group_pilot_id = p.id
 and g.id = p.time_trial_group_id
 )
 
+
+Lab-2
+ https://www.cloudskillsboost.google/games/3139/labs/19213
+
+ gsutil cp gs://spls/gsp396/DRL2.ipynb .
+
+!gsutil ls gs://{BUCKET}/model
+gs://qwiklabs-gcp-01-38db58a6af4e/model/
+gs://qwiklabs-gcp-01-38db58a6af4e/model/keras_metadata.pb
+gs://qwiklabs-gcp-01-38db58a6af4e/model/saved_model.pb
+gs://qwiklabs-gcp-01-38db58a6af4e/model/assets/
+gs://qwiklabs-gcp-01-38db58a6af4e/model/variables/
+
+
+ !gcloud ai models upload \
+  --region=us-east1 \
+  --display-name=drl-pilot-ranking \
+  --container-image-uri=us-docker.pkg.dev/vertex-ai/prediction/tf2-cpu.2-8:latest \
+  --artifact-uri=gs://{BUCKET}/model
+
+
+https://github.com/googleapis/python-aiplatform/blob/main/samples/snippets/prediction_service/predict_custom_trained_model_sample.py
+
+predict_custom_trained_model_sample(
+    project="828836705604",
+    endpoint_id="4690657341580771328",
+    location="us-east1",
+    instance_dict={"pilot_id": "11", "ename": "Practice", "events_name": "Project Manhattan", "minimum_time": "80.0"}
+)
