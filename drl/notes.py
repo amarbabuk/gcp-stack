@@ -122,8 +122,14 @@ and g.id = p.time_trial_group_id
 Lab-2
  https://www.cloudskillsboost.google/games/3139/labs/19213
 
+# Create dataframe and import from cloud storage
+spls/gsp396/lab2.csv
+Name the table pilot-event-times.
+
+# Download notebook
  gsutil cp gs://spls/gsp396/DRL2.ipynb .
 
+# creates followig models
 !gsutil ls gs://{BUCKET}/model
 gs://qwiklabs-gcp-01-38db58a6af4e/model/
 gs://qwiklabs-gcp-01-38db58a6af4e/model/keras_metadata.pb
@@ -132,6 +138,7 @@ gs://qwiklabs-gcp-01-38db58a6af4e/model/assets/
 gs://qwiklabs-gcp-01-38db58a6af4e/model/variables/
 
 
+#Upload model
  !gcloud ai models upload \
   --region=us-east1 \
   --display-name=drl-pilot-ranking \
@@ -141,9 +148,17 @@ gs://qwiklabs-gcp-01-38db58a6af4e/model/variables/
 
 https://github.com/googleapis/python-aiplatform/blob/main/samples/snippets/prediction_service/predict_custom_trained_model_sample.py
 
+gcloud auth application-default login
+
+ENDPOINT_ID="2271098441775972352"
+PROJECT_ID="qwiklabs-gcp-01-b313f4deebe2"
+INPUT_DATA_FILE="in.json"
+
+curl -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" -H "Content-Type: application/json" https://us-east1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-east1/endpoints/${ENDPOINT_ID}:predict -d "@${INPUT_DATA_FILE}"
+
 predict_custom_trained_model_sample(
     project="828836705604",
     endpoint_id="4690657341580771328",
     location="us-east1",
-    instance_dict={"pilot_id": "11", "ename": "Practice", "events_name": "Project Manhattan", "minimum_time": "80.0"}
+    instance_dict={"instances": [{"pilot_id": 11, "ename": "Practice", "events_name": "Project Manhattan", "minimum_time": 80.0}]}
 )
