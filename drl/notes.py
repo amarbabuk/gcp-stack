@@ -12,6 +12,13 @@ gsutil ls gs://spls/gsp394/tables
 
 gsutil cat  gs://spls/gsp394/tables/colors.csv
 
+#############
+# shell script to pull all csv files 
+# create tables with bq utility 
+bq mk drl
+
+for file in `gsutil ls gs://spls/gsp394/tables/*.csv`; do TABLE_NAME=`echo $file | cut -d '/' -f6 | cut -d '.' -f1`; bq load --autodetect --source_format=CSV --replace=true drl.$TABLE_NAME $file; done
+#############
 
 pip install --upgrade google-cloud-bigquery
 
