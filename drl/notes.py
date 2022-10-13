@@ -15,6 +15,7 @@ gsutil cat  gs://spls/gsp394/tables/colors.csv
 #############
 # shell script to pull all csv files 
 # create tables with bq utility 
+# https://www.googlecloudcommunity.com/gc/Learning-Forums/Fly-Cup-Challenge-Bucket-Missing/m-p/475908/highlight/true#M11824
 bq mk drl
 
 for file in `gsutil ls gs://spls/gsp394/tables/*.csv`; do TABLE_NAME=`echo $file | cut -d '/' -f6 | cut -d '.' -f1`; bq load --autodetect --source_format=CSV --replace=true drl.$TABLE_NAME $file; done
